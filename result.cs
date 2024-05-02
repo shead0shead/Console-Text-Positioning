@@ -1,51 +1,51 @@
 ﻿using System.Text.RegularExpressions;
 
 string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-// Длина текста, не считая уже отделённых строк
+// The length of the text, not counting the already separated lines
 int length = text.Length;
-// Позиция, на которой нужно вставить разрыв строки
+// The position where you want to insert a line break
 int cursor = 0;
 
-// Продолжаем разбивать текст до тех пор, пока он длиннее, чем может поместиться на одной строке
+// Continue to split the text until it is longer than it can fit on one line
 while (length > Console.WindowWidth)
 {
-    // Получаем новую строку, которая будет влезать в ширину консоли
+    // Get a new line that will fit into the width of the console
     string newLine = text.Substring(cursor, Console.WindowWidth - 4);
 
-    // Находим положение последнего курсора в этой строке
+    // Find the position of the last cursor in this line
     int lineLength = newLine.LastIndexOf(' ');
 
-    // Прибавляем к курсору длину новой строки
+    // Adding the length of the new line to the cursor
     cursor += lineLength;
-    // Вставляем разрыв
+    // Inserting a gap
     text = text.Insert(cursor, "\n");
-    // Отнимаем от длины текста длину новой строки
+    // Subtract the length of the new line from the length of the text
     length -= lineLength;
 }
 
-// Разбиваем текст на массив строк
+// Splitting the text into an array of lines
 string[] lines = Regex.Split(text, "\r\n|\r|\n");
 
-// Отступ слева будет определяться для каждой строки отдельно
+// The indentation on the left will be determined for each line separately
 int left = 0;
-// Определяем отступ сверху для первой строки
+// Defining the top indentation for the first line
 int top = (Console.WindowHeight / 2) - (lines.Length / 2) - 1;
 
-// Находим центр консоли сразу, чтобы не грузить приложение лишними вычислениями
-// Делайте это стоит на свой страх и риск - если пользователь растянет консоль, весь текст поедет
+// Find the center of the console immediately, so as not to load the application with unnecessary calculations
+// Do it at your own risk - if the user stretches the console, all the text will go
 int center = Console.WindowWidth / 2;
 
 for (int i = 0; i < lines.Length; i++)
 {
-    // Определяем отступ для текущей строки
+    // Defining the indentation for the current line
     left = center - (lines[i].Length / 2);
 
-    // Меняем положение курсора
+    // Changing the cursor position
     Console.SetCursorPosition(left, top);
-    // Выводим строку
+    // Output the line
     Console.WriteLine(lines[i]);
 
-    // Для каждой новой строки программа будет автоматически считать отступ сверху
+    // For each new line, the program will automatically count the indentation from the top
     top = Console.CursorTop;
 }
 
