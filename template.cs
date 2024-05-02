@@ -2,7 +2,7 @@
 
 restart:
         
-Console.Write("Write text: ");
+Console.Write("Напишите текст: ");
 string text = Console.ReadLine();
 Console.Clear();
         
@@ -31,7 +31,7 @@ for (int i = 0; i < lines.Length; i++)
 }
 
 Console.SetCursorPosition(0, Console.WindowHeight);
-Console.WriteLine("Press any key for restart");
+Console.WriteLine("Нажмите любую клавишу для перезапуска");
         
 Console.ReadKey();
 goto restart;
