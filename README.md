@@ -1,5 +1,5 @@
 # 🤔 Console Text Positioning
-A guide on how to position text in the console or terminal.
+A guide on how to position text in the C# console or terminal.
 
 ## Working with text coordinates
 
